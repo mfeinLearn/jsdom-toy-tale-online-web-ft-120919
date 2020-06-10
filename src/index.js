@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => { //DOMContentLoaded and cal
   // console.log("%cDom is loaded", "color :red")
   const addBtn = document.querySelector("#new-toy-btn");
   const toyFormContainer = document.querySelector(".container");
+  const toyCollection = document.querySelector("#toy-collection")
   fetch("http://localhost:3000/toys")
   .then(r => r.json()) // get a response that I will parse to json
   .then(toys => {
@@ -20,11 +21,12 @@ document.addEventListener("DOMContentLoaded", () => { //DOMContentLoaded and cal
             <h2>${toy.name}</h2>
             <img src=${toy.image} class="toy-avatar" />
             <p>${toy.likes} Likes </p>
-            <button class="like-btn">Like <3</button>
+            <button data-id="${toy.id}" class="like-btn">Like <3</button>
           </div>
           `
       })
-      document.querySelector("#toy-collection").innerHTML = toysHTML.join('')
+      toyCollection.innerHTML = toysHTML.join('')
+      //document.querySelector("#toy-collection").innerHTML = toysHTML.join('')
       //console.log(toysHTML.join(''))
   })
 
@@ -58,12 +60,18 @@ document.addEventListener("DOMContentLoaded", () => { //DOMContentLoaded and cal
             <h2>${newToy.name}</h2>
             <img src=${newToy.image} class="toy-avatar" />
             <p>${newToy.likes} Likes </p>
-            <button class="like-btn">Like <3</button>
+            <button data-id="${newToy.id}" class="like-btn">Like <3</button>
           </div>
           `
 
-        document.querySelector("#toy-collection").innerHTML += newToyHTML
+        toyCollection.innerHTML += newToyHTML
+        console.log(e.target.reset())
       })
+  })
+
+  toyCollection.addEventListener("click", () => {
+      // how can I make those likes unique?
+
   })
 
   // addBtn will wait until the content is loaded
