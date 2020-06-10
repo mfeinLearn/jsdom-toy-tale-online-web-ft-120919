@@ -69,9 +69,23 @@ document.addEventListener("DOMContentLoaded", () => { //DOMContentLoaded and cal
       })
   })
 
-  toyCollection.addEventListener("click", () => {
+  toyCollection.addEventListener("click", (e) => {
       // how can I make those likes unique?
+      // I am listening for a click anywhere in the toy collection
+      //.. but now I am listening only if a button with a class name of like-btn
+      //.. is being called
+      if (e.target.className === "like-btn") {
+          // aside: you can qurery select within the card
+           // e.target. == $0.
+          console.log("This is e.target", e.target.previousElementSibling.innerText)//e.target is the button
+          let currentLikes = parseInt( e.target.previousElementSibling.innerText)
+          let newLikes = currentLikes + 1
+          e.target.previousElementSibling.innerText = newLikes + " likes"
 
+          fetch(`http://localhost:3000/toys/${e.target.dataset.id}`)
+
+      }
+      // console.log(typeof(e.target))
   })
 
   // addBtn will wait until the content is loaded
