@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => { //DOMContentLoaded and cal
             <img src=${toy.image} class="toy-avatar" />
             <p>${toy.likes} Likes </p>
             <button data-id="${toy.id}" class="like-btn">Like <3</button>
+            <button data-id="${toy.id}" class="delete-btn">back in the toy chest</button>
           </div>
           `
       })
@@ -61,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => { //DOMContentLoaded and cal
             <img src=${newToy.image} class="toy-avatar" />
             <p>${newToy.likes} Likes </p>
             <button data-id="${newToy.id}" class="like-btn">Like <3</button>
+            <button data-id="${newToy.id}" class="delete-btn">back in the toy chest</button>
           </div>
           `
 
@@ -81,9 +83,29 @@ document.addEventListener("DOMContentLoaded", () => { //DOMContentLoaded and cal
           let currentLikes = parseInt( e.target.previousElementSibling.innerText)
           let newLikes = currentLikes + 1
           e.target.previousElementSibling.innerText = newLikes + " likes"
+            // ^^ this updated the dom
 
-          fetch(`http://localhost:3000/toys/${e.target.dataset.id}`)
+            // VV this fetch updated the database
+          fetch(`http://localhost:3000/toys/${e.target.dataset.id}`, {
+              method: "PATCH",
+              headers:
+              {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({ // what are we sending over?
+                likes: newLikes
+            })
+          })
+      }
 
+      if (e.target.className === "delete-btn") {
+          fetch(`http://localhost:3000/toys/${e.target.dataset.id}`, {
+              method: "DELETE"
+          })
+          .then(r => {
+              e.target.parentElement.remove()
+          })
       }
       // console.log(typeof(e.target))
   })
@@ -99,3 +121,8 @@ document.addEventListener("DOMContentLoaded", () => { //DOMContentLoaded and cal
     }
   });
 });
+
+
+// update the dom && fetch
+// pesamisticlly or optimisticly
+// 1) updating the database first
