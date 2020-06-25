@@ -14,5 +14,16 @@ I tell some element on the page to .append it it does not live on the dom it liv
 By contrast if I am using innerHTML and I am just setting the HTML of something that already exist on the page I dont need to append it it already lives their i'm changing the thing that already lives on the page )
 - if you haven't append it , it isn't on the DOM
 
+4. DOMContentLoaded should also add any event listeners for things ALREADY on the DOM(in your index.html)(also if it is something you are putting on the page if it is an element you are adding you can not add that event listener until it exists on the page which which it probably wont at this point. This code runs like immediaately after the page loads. If I'm fetching data and putting things on the page those wont exist yet but this form exists because its already in here in the HTML)
+4. Listen for form submission
+5. Grab input information
+6. send somewhere
 
-4.
+
+
+### Setting up a Form Event listener
+- grab reference to the form
+- add a submit event listener to the form
+- PERVENT DEFAULT
+- get values
+- send values somewhere

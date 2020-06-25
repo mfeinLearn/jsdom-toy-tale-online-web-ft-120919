@@ -8,3 +8,19 @@ function getToys() {
 
     // RETURN WHEN YOU GET undefined
 }
+
+function createToy(data) {
+    console.log(data)
+    const url = `http://localhost:3000/toys`
+    return fetch(url, {
+      method: 'POST', // *GET, POST, PUT, DELETE, etc.
+      headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+        // "hey I am sending you some data type json is that ok with you are you type json too?"
+        // 'and yes we are giving you json apis'
+      },
+      body: JSON.stringify(data) // body data type must match "Content-Type" header
+    })
+}
