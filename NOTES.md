@@ -55,3 +55,31 @@ document.querySelector('form');
 document.querySelector('form');
 
 document.querySelectorAll(".input-text");
+
+
+
+///////////////////////////////////////////////////////////////////////////
+How to solve the following problem? - I posted data and I want to update it
+- 1) If we have a nice restful api it might be sending us some useful data
+/////////////////
+
+Optimistic Rendering:
+You are hopeful that our post works and we put it on the
+dom before waiting to see what our post request returns.
+
+So the information that I need to put it on the page
+
+
+///////////////////
+
+Adding something else on to an existing string/ element:
+```javascript
+const collection = document.querySelector('#toy-collection')
+collection.innerHTML += innerHTML (some new string)
+
+// an element like this (VVV) is a string:
+div.innerHTML = `<h2>${toy.name}</h2>
+<img src=${toy.image} class="toy-avatar" />
+<p>${toy.likes} Likes </p>
+<button class="like-btn">Like <3</button>`
+```

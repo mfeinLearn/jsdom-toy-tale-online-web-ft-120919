@@ -31,12 +31,21 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault()
         const name_input = e.target.name
         const image_input = e.target.image
+        console.log("form submitted")
 
         const data = { // this represents the data that I want to send back
           "name": name_input.value,
           "image": image_input.value,
           "likes": 0
         }
+
+        createToy(data)
+            .then(showToy)
+
+
+
+        name_input.value = ""
+        image_input.value = ""
     }
 
     function showToys(toys) {
@@ -62,3 +71,20 @@ document.addEventListener("DOMContentLoaded", () => {
         })
     }
 });
+
+function showToy(toy) {// a function that puts one toy on the dom
+    const collection = document.querySelector('#toy-collection')
+    const div = document.createElement('div')// -> created element
+    // added properties
+    div.className = 'card' // lives in js
+    // div.innerText = toy.name
+
+    // lives in js
+    div.innerHTML = `<h2>${toy.name}</h2>
+    <img src=${toy.image} class="toy-avatar" />
+    <p>${toy.likes} Likes </p>
+    <button class="like-btn">Like <3</button>`
+
+    // append to DOM
+    collection.append(div) //-> put on the dom
+}
