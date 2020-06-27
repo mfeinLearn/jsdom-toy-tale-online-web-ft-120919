@@ -59,13 +59,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // added properties
             div.className = 'card'
-            // div.innerText = toy.name
+            //VVV `data` because we are dealing with an argument that lives inside data
+            // then we can pass it arguments for key value pairs
+            /*div.setAttribute('data', `id: ${toy.id}`); - setAttribute is just a function that takes an attribute or a property of the html and an argumet of the value that we want it to be and execute this sort of thing for us: div.dataset.id = toy.id*/
+            // div.dataset.id = toy.id
 
             div.innerHTML = `<h2>${toy.name}</h2>
-            <img src=${toy.image} class="toy-avatar" />
+            <img src=${toy.image} class="toy-avatar">
             <p>${toy.likes} Likes </p>
-            <button class="like-btn">Like <3</button>`
-
+            <button data-id=${toy.id} data-likes=${toy.likes} class="like-btn">Like <3</button>`
+            div.addEventListener('click', increaseLikes)
             // append to DOM
             collection.append(div)
         })
@@ -76,15 +79,34 @@ function showToy(toy) {// a function that puts one toy on the dom
     const collection = document.querySelector('#toy-collection')
     const div = document.createElement('div')// -> created element
     // added properties
+
     div.className = 'card' // lives in js
     // div.innerText = toy.name
 
     // lives in js
     div.innerHTML = `<h2>${toy.name}</h2>
-    <img src=${toy.image} class="toy-avatar" />
-    <p>${toy.likes} Likes </p>
+    <img src=${toy.image} class="toy-avatar">
+    <p>${toy.likes} Likes <p>
     <button class="like-btn">Like <3</button>`
 
     // append to DOM
     collection.append(div) //-> put on the dom
+}
+
+function increaseLikes(event) {
+    if (event.target.tagName === "BUTTON") {
+        // console.log(event.target.dataset.id, event.target.dataset.likes)
+        const button = event.target
+        const parent = button.parentElement
+        const likeEl = parent.querySelector('p')
+        let likes = parseInt(event.target.dataset.likes)
+        likeEl.innerText = `${likes + 1} Likes`
+        event.target.dataset.likes = likes + 1
+        // patch request likes
+        const data = {
+              "likes": likes + 1
+            }
+        updateLikes(data, event.target.dataset.id)
+        .then(console.log)
+    }
 }

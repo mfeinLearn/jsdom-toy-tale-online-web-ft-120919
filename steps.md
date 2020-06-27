@@ -27,3 +27,8 @@ By contrast if I am using innerHTML and I am just setting the HTML of something 
 - PERVENT DEFAULT
 - get values
 - send values somewhere
+
+
+## Many event listeners
+- add it at the time you create the object
+- use event delegation(is where we put the event listener on the entire page and then inside that event listener it's listening for a click anywhere on the page but we put logic in it that says execute code if it's the delete button or the like button other wise ignore it. -> When we use event delegation the callback function gets execute a lot but it has logic inside it that says only run code in this case.)
